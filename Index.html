@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Prompt Forge | Kinetic Workspace</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="ui-layer">
+        <div class="glass-header">
+            <div class="brand">
+                <div class="pulse-ring"></div>
+                <span>Prompt Forge v2.0</span>
+            </div>
+            <div class="input-container">
+                <input type="text" id="nodeInput" placeholder="Enter a concept (e.g. 'Cyberpunk', 'Python API')...">
+                <div class="kbd-hint">Enter to Plant</div>
+            </div>
+            <div class="node-stats">
+                <span id="activeCount">0</span> Nodes Active
+            </div>
+        </div>
+
+        <div id="resultModal" class="modal">
+            <div class="modal-content">
+                <div class="forge-loader" id="loader"></div>
+                <h2 id="modalTitle">Synthesizing Prompt</h2>
+                <textarea id="refinedPromptText" readonly spellcheck="false"></textarea>
+                <div class="modal-actions">
+                    <button class="primary-btn" onclick="copyAndClose()">Copy & Clear Workspace</button>
+                    <button class="secondary-btn" onclick="closeModalOnly()">Keep Nodes</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="aiBin" class="ai-bin">
+            <div class="bin-label">
+                <span class="bin-icon">✨</span>
+                <p>DRAG NODES TO FORGE</p>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="lensCanvas"></canvas>
+
+    <script src="assets/config.js"></script>
+    <script src="assets/app.js"></script>
+</body>
+</html>
