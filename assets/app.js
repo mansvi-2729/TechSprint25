@@ -1,8 +1,12 @@
+// Spatial AI Engine v2.0
 const canvas = document.getElementById('lensCanvas');
 const ctx = canvas.getContext('2d');
 const input = document.getElementById('nodeInput');
 const bin = document.getElementById('aiBin');
 const countDisplay = document.getElementById('activeCount');
+
+// API KEY HARDCODED FOR SIMPLICITY
+const GEMINI_API_KEY = "AIzaSyCBQIHT2vVSUYjtSQJ63571YWq6IbiUUWw";
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -48,7 +52,6 @@ class Node {
     update() {
         if (draggedNode === this) return;
 
-        // Mouse Attraction
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const dist = Math.sqrt(dx*dx + dy*dy);
@@ -58,7 +61,6 @@ class Node {
             this.vy += (dy / dist) * force * 0.9;
         }
 
-        // Collision Logic
         nodes.forEach(other => {
             if (other === this) return;
             const odx = other.x - this.x;
@@ -88,7 +90,7 @@ async function startGeminiForge(keywords) {
     modal.style.display = 'block';
     textArea.value = "Consulting Gemini...";
 
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CONFIG.GEMINI_API_KEY}`;
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
     try {
         const response = await fetch(API_URL, {
@@ -164,7 +166,6 @@ function closeModalOnly() { document.getElementById('resultModal').style.display
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Render Neural Beams
     nodes.forEach((n, i) => {
         for (let j = i + 1; j < nodes.length; j++) {
             const dist = Math.hypot(n.x - nodes[j].x, n.y - nodes[j].y);
